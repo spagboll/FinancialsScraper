@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Reflection;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AngleSharp;
 using AngleSharp.Dom;
@@ -9,55 +7,64 @@ namespace ConsoleApplication1
 {
     internal class Program
     {
+        private static IBrowsingContext _context => SetupBrowsingContext();
+        private const string _address = "https://www.wsj.com/market-data/quotes/TSM/financials";
+        
         public static async Task Main(string[] args)
         {
-            var config = Configuration.Default.WithDefaultLoader();
+            var document = await GetDocument();
             
-            var address = "https://www.wsj.com/market-data/quotes/TSM/financials";
-
-            var context = BrowsingContext.New(config);
+            var perShareData = new PerShareData();
             
-            var document = await context.OpenAsync(address);
+            var perShareData1 = new PerShareData();
             
-            var perShareDataTable = document.QuerySelector("table[class='cr_dataTable cr_mod_pershare']").Children.Single(x => x.LocalName == "tbody");
-
-            var perShareDataTableCells = perShareDataTable.Children.Select(x => x.Children.Select(y => y.TextContent));
+            var dataCells = perShareData.GetDataTableCells(document); 
             
-            PerShareDataTable dataTable = new PerShareDataTable();
-            
-            foreach (var cellTexts in perShareDataTableCells)
+            foreach (var cellTexts in dataCells)
             {
+                var lol = new MapperFactory().GetMapper<PerShareData>();
+                
                 foreach (var text in cellTexts)
                 {
-                    var pattern = @"([^a-zA-Z])\d*\.?\d+";
-
-                    var digitsAndSymbolsRegex = Regex.Match(text, pattern).Value;
-
-                    var charIndex = text.Contains("+") ? "+" : "-";
-                    
-                    if (text.Contains("Earnings Per Share"))
+                    if (!string.IsNullOrEmpty(text))
                     {
-                        var val = text.Substring(text.IndexOf(charIndex)).Trim();
-                        dataTable.EarningsPerShare = val; 
-                    }
-                    else if (text.Contains("Sales"))
-                    {
-                        var val = text.Substring(text.IndexOf(charIndex)).Trim();
+                        var numberAndSymbolPattern = @"([^a-zA-Z])\d*\.?\d+";
+                        var matchedValue = Regex.Match(text, numberAndSymbolPattern).Value.Trim();
+                        
+                        if (text.Contains("Earnings Per Share"))
+                            perShareData.EarningsPerShare = matchedValue;
+                        
+                        if (text.Contains("Sales"))
+                            perShareData.Sales = matchedValue;
+
+                        if (text.Contains("Tangible Book Value"))
+                            perShareData.TangibleBookValue = matchedValue;
+
+                        if (text.Contains("Operating Profit"))
+                            perShareData.OperatingProfit = matchedValue;
+
+                        if (text.Contains("Working Capital"))
+                            perShareData.WorkingCapital = matchedValue;
+                        
+                        if (text.Contains("Capital Expenditure"))
+                            perShareData.CapitalExpenditure = matchedValue;
+                        
+                        if (text.Contains("Capital Expenditure TTM"))
+                            perShareData.CapitalExpenditureTtm = matchedValue; 
                     }
                 }
             }
+        }
 
-            // foreach (var text in perShareDataTable.Children.Select(x => x.TextContent.Trim()))
-            // {
-            //
-            //     if (text.Contains("Earnings Per Share") || text.Contains("Sales"))
-            //     {
-            //         var perShareTxt = text.Substring(0, text.IndexOf('+')).Trim();
-            //         var perShareVal = text.Substring(text.IndexOf('+'), text.IndexOf(' ')).Trim();
-            //         
-            //         //var salesTxt = text.Substring(text.IndexOf(''))
-            //     }
-            // }
+        private static IBrowsingContext SetupBrowsingContext()
+        {
+            var config = Configuration.Default.WithDefaultLoader();
+            return BrowsingContext.New(config);
+        }
+        
+        private static async Task<IDocument> GetDocument()
+        {
+            return await _context.OpenAsync(_address);
         }
     }
 }

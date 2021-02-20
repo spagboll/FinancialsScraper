@@ -1,26 +1,22 @@
 ﻿using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using AngleSharp;
 using AngleSharp.Dom;
+using FinancialsScraper.Interfaces;
+using FinancialsScraper.Models;
+using FinancialsScraper.PageElements;
 
-namespace ConsoleApplication1
+namespace FinancialsScraper.Mappers
 {
-    internal class Program
+    public class PerShareDataMapper : IDataMapper<PerShareData>
     {
-        private static IBrowsingContext _context => SetupBrowsingContext();
-        private const string _address = "https://www.wsj.com/market-data/quotes/TSM/financials";
+        private PerShareDataTable _perShareDataTable = new PerShareDataTable();
         
-        public static async Task Main(string[] args)
+        public PerShareData Map(IDocument document)
         {
-            var document = await GetDocument();
-            
             var perShareData = new PerShareData();
+
+            var tableCells = _perShareDataTable.GetDataTableCells(document, perShareData.GetSelector()); 
             
-            var perShareData1 = new PerShareData();
-            
-            var dataCells = perShareData.GetDataTableCells(document); 
-            
-            foreach (var cellTexts in dataCells)
+            foreach (var cellTexts in tableCells)
             {
                 foreach (var text in cellTexts)
                 {
@@ -52,17 +48,8 @@ namespace ConsoleApplication1
                     }
                 }
             }
-        }
 
-        private static IBrowsingContext SetupBrowsingContext()
-        {
-            var config = Configuration.Default.WithDefaultLoader();
-            return BrowsingContext.New(config);
-        }
-        
-        private static async Task<IDocument> GetDocument()
-        {
-            return await _context.OpenAsync(_address);
+            return perShareData; 
         }
     }
 }

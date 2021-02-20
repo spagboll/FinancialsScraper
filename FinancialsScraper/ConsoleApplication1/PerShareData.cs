@@ -5,7 +5,7 @@ using AngleSharp.Dom;
 
 namespace ConsoleApplication1
 {
-    public class PerShareData : DataElement
+    public class PerShareData : IDataElement
     {
         public string EarningsPerShare { get; set; }
 
@@ -33,6 +33,11 @@ namespace ConsoleApplication1
             return document.QuerySelector(GetSelector()).Children.Single(x => x.LocalName == "tbody");
         }
 
-        public override string GetSelector() => "table[class='cr_dataTable cr_mod_pershare']"; 
+        public IDataElement Map(IEnumerable<string> data)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public string GetSelector() { return "table[class='cr_dataTable cr_mod_pershare']"; }
     }
 }

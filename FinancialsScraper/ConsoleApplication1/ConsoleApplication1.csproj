@@ -50,9 +50,11 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="DataElement.cs" />
+        <Compile Include="ElementName.cs" />
+        <Compile Include="IDataElement.cs" />
         <Compile Include="IElementMapper.cs" />
         <Compile Include="MapperFactory.cs" />
+        <Compile Include="MapperType.cs" />
         <Compile Include="PerShareData.cs" />
         <Compile Include="PerShareDataMapper.cs" />
         <Compile Include="Program.cs" />

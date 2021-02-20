@@ -7,9 +7,9 @@ namespace ConsoleApplication1
 {
     public class PerShareDataMapper : IElementMapper
     {
-        public DataElement Map(IEnumerable<string> values)
+        public IElementMapper Map(Dictionary<ElementName, string> values)
         {
-            return new PerShareData();
+            throw new NotImplementedException();
         }
     }
 }

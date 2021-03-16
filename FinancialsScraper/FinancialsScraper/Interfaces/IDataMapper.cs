@@ -3,7 +3,7 @@ using FinancialsScraper.Models;
 
 namespace FinancialsScraper.Interfaces
 {
-    public interface IDataMapper<T>
+    public interface IDataMapper<out T>
     {
         T Map(IDocument document);
     }

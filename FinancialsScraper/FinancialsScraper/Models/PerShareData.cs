@@ -2,7 +2,7 @@
 
 namespace FinancialsScraper.Models
 {
-    public class PerShareData : IPageElement
+    public class PerShareData
     {
         public string EarningsPerShare { get; set; }
 

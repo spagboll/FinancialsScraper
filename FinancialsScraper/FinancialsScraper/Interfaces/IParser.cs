@@ -5,6 +5,6 @@ namespace FinancialsScraper.Interfaces
 {
     public interface IParser
     {
-        Task<IDocument> GetDocument(string urlToParse);
+        Task<IDocument> ParsePage(string urlToParse);
     }
 }

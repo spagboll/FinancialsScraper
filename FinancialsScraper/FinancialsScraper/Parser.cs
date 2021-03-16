@@ -9,7 +9,7 @@ namespace FinancialsScraper
     {
         private IBrowsingContext _context => SetupBrowsingContext();
         
-        public async Task<IDocument> GetDocument(string urlToParse)
+        public async Task<IDocument> ParsePage(string urlToParse)
         {
             return await _context.OpenAsync(urlToParse);
         }

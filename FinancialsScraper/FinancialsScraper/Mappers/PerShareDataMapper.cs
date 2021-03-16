@@ -1,14 +1,15 @@
-﻿using System.Text.RegularExpressions;
-using AngleSharp.Dom;
+﻿using AngleSharp.Dom;
 using FinancialsScraper.Interfaces;
 using FinancialsScraper.Models;
 using FinancialsScraper.PageElements;
+using System.Text.RegularExpressions;
+using FinancialsScraper.Helpers;
 
 namespace FinancialsScraper.Mappers
 {
     public class PerShareDataMapper : IDataMapper<PerShareData>
     {
-        private PerShareDataTable _perShareDataTable = new PerShareDataTable();
+        private readonly PerShareDataTable _perShareDataTable = new PerShareDataTable();
         
         public PerShareData Map(IDocument document)
         {
@@ -22,8 +23,7 @@ namespace FinancialsScraper.Mappers
                 {
                     if (!string.IsNullOrEmpty(text))
                     {
-                        var numberAndSymbolPattern = @"([^a-zA-Z])\d*\.?\d+";
-                        var matchedValue = Regex.Match(text, numberAndSymbolPattern).Value.Trim();
+                        var matchedValue = MatchHelper.MatchNumberAndSymbol(text); 
                         
                         if (text.Contains("Earnings Per Share"))
                             perShareData.EarningsPerShare = matchedValue;

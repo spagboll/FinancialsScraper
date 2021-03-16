@@ -10,8 +10,8 @@ namespace FinancialsScraper.PageElements
         {
             return GetDataTable(document, selector).Children.Select(x => x.Children.Select(y => y.TextContent));
         }
-        
-        public IElement GetDataTable(IDocument document, string selector) 
+
+        private IElement GetDataTable(IDocument document, string selector) 
         {
             return document.QuerySelector(selector).Children.Single(x => x.LocalName == "tbody");
         }

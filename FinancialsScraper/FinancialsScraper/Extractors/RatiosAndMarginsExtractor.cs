@@ -3,9 +3,9 @@ using System.Linq;
 using AngleSharp.Dom;
 using FinancialsScraper.Interfaces;
 
-namespace FinancialsScraper.PageElements
+namespace FinancialsScraper.Extractors
 {
-    public class RatiosAndMarginsTable : IPageElement
+    public class RatiosAndMarginsExtractor : IPageElement
     {
         public IEnumerable<string> GetValuationDataCells(IDocument document)
         {

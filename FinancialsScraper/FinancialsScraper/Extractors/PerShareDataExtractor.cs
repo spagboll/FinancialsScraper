@@ -2,9 +2,9 @@
 using System.Linq;
 using AngleSharp.Dom;
 
-namespace FinancialsScraper.PageElements
+namespace FinancialsScraper.Extractors
 {
-    public class PerShareDataTable
+    public class PerShareDataExtractor
     {
         public IEnumerable<IEnumerable<string>> GetDataTableCells(IDocument document, string selector)
         {

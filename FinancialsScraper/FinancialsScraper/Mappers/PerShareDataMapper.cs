@@ -1,21 +1,20 @@
 ﻿using AngleSharp.Dom;
 using FinancialsScraper.Interfaces;
 using FinancialsScraper.Models;
-using FinancialsScraper.PageElements;
-using System.Text.RegularExpressions;
+using FinancialsScraper.Extractors;
 using FinancialsScraper.Helpers;
 
 namespace FinancialsScraper.Mappers
 {
     public class PerShareDataMapper : IDataMapper<PerShareData>
     {
-        private readonly PerShareDataTable _perShareDataTable = new PerShareDataTable();
+        private readonly PerShareDataExtractor _perShareDataExtractor = new PerShareDataExtractor();
         
         public PerShareData Map(IDocument document)
         {
             var perShareData = new PerShareData();
 
-            var tableCells = _perShareDataTable.GetDataTableCells(document, perShareData.GetSelector()); 
+            var tableCells = _perShareDataExtractor.GetDataTableCells(document, perShareData.GetSelector()); 
             
             foreach (var cellTexts in tableCells)
             {

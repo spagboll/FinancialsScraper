@@ -1,6 +1,6 @@
 ﻿namespace FinancialsScraper.Models
 {
-    public class RatiosAndMargins
+    public class RatiosAndMargins : IElementModel
     {
         public Valuation Valuation { get; set; }
         

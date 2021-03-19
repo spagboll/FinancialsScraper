@@ -1,10 +1,9 @@
-using System.Linq;
 using System.Threading.Tasks;
 using Amazon.Lambda.Core;
 using FinancialsScraper.Builders;
+using FinancialsScraper.Extractors;
 using FinancialsScraper.Interfaces;
 using FinancialsScraper.Mappers;
-using FinancialsScraper.PageElements;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
@@ -20,11 +19,11 @@ namespace FinancialsScraper
             input = "https://www.wsj.com/market-data/quotes/TSM/financials";
 
             var document = await _parser.ParsePage(input);
-
-            var ratiosandmargins = new RatiosAndMarginsTable().GetValuationDataCells(document); 
-
+            
+            var ratiosandmargins = new RatiosAndMarginsMapper().Map(document);
+            
+            
             var perShareData = new PerShareDataMapper().Map(document);
-
             var financials = FinancialsBuilder.Create().WithPerShareData(perShareData).Build(); 
             
 

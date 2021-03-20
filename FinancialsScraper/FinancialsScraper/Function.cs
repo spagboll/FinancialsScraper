@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using Amazon.Lambda.Core;
 using FinancialsScraper.Builders;
-using FinancialsScraper.Extractors;
 using FinancialsScraper.Interfaces;
 using FinancialsScraper.Mappers;
 

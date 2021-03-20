@@ -7,11 +7,35 @@
         public Profitability Profitability { get; set; }
 
         public CapitalStructure CapitalStructure { get; set; }
+        
+        public Liquidity Liquidity { get; set; }
+    }
+
+    public class Liquidity
+    {
+        public string CurrentRatio { get; set; }
+        
+        public string QuickRatio { get; set; }
+        
+        public string CashRatio { get; set; }
     }
 
     public class CapitalStructure
     {
+        public string TotalDebtToTotalEquity { get; set; }
         
+        public string TotalDebtToTotalCapital { get; set; }
+        
+        public string TotalDebtToTotalAssets { get; set; }
+
+        public string InterestCoverage { get; set; }
+
+        public string LongTermDebtToEquity { get; set; }
+
+        public string LongTermDebtToTotalCapital { get; set; }
+
+        public string LongTermDebtToAssets { get; set; }
+
     }
 
     public class Profitability
@@ -56,4 +80,6 @@
         
         public string EPSDiluted { get; set; }
     }
+    
+    
 }

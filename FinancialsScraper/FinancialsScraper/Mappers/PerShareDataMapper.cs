@@ -8,13 +8,11 @@ namespace FinancialsScraper.Mappers
 {
     public class PerShareDataMapper : IDataMapper<PerShareData>
     {
-        private readonly PerShareDataExtractor _perShareDataExtractor = new PerShareDataExtractor();
-        
         public PerShareData Map(IDocument document)
         {
             var perShareData = new PerShareData();
 
-            var tableCells = _perShareDataExtractor.GetDataTableCells(document, perShareData.GetSelector()); 
+            var tableCells = PerShareDataExtractor.GetDataTableCells(document, perShareData.GetSelector()); 
             
             foreach (var cellTexts in tableCells)
             {

@@ -4,14 +4,14 @@ using AngleSharp.Dom;
 
 namespace FinancialsScraper.Extractors
 {
-    public class PerShareDataExtractor
+    public static class PerShareDataExtractor
     {
-        public IEnumerable<IEnumerable<string>> GetDataTableCells(IDocument document, string selector)
+        public static IEnumerable<IEnumerable<string>> GetDataTableCells(IDocument document, string selector)
         {
             return GetDataTable(document, selector).Children.Select(x => x.Children.Select(y => y.TextContent));
         }
 
-        private IElement GetDataTable(IDocument document, string selector) 
+        private static IElement GetDataTable(IDocument document, string selector) 
         {
             return document.QuerySelector(selector).Children.Single(x => x.LocalName == "tbody");
         }

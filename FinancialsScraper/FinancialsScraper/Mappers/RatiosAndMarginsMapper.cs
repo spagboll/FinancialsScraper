@@ -1,27 +1,28 @@
-﻿using AngleSharp.Dom;
-using FinancialsScraper.Extractors;
+﻿using System.Collections.Generic;
+using System.Linq;
 using FinancialsScraper.Helpers;
 using FinancialsScraper.Interfaces;
 using FinancialsScraper.Models;
 
 namespace FinancialsScraper.Mappers
 {
-    public class RatiosAndMarginsMapper : IDataMapper<IElementModel>
+    public class RatiosAndMarginsMapper : IDataMapper<string>
     {
-        public IElementModel Map(IDocument document)
+        public IDataModel Map(IEnumerable<string> cells)
         {
+            var dataCells = cells as string[] ?? cells.ToArray();
             return new RatiosAndMargins
             {
-                Valuation = MapValuation(document),
-                Profitability = MapProfitability(document),
-                CapitalStructure = MapCapitalStructure(document),
-                Liquidity = MapLiquidity(document)
+                Valuation = MapValuation(dataCells),
+                Profitability = MapProfitability(dataCells),
+                CapitalStructure = MapCapitalStructure(dataCells),
+                Liquidity = MapLiquidity(dataCells)
             };
         }
 
-        private Liquidity MapLiquidity(IDocument document)
+        private Liquidity MapLiquidity(IEnumerable<string> dataCells)
         {
-            var dataCells = RatiosAndMarginsExtractor.GetLiquidity(document);
+            //var dataCells = RatiosAndMarginsExtractor.GetLiquidity(document);
             var liquidity = new Liquidity();
             
             foreach (var cell in dataCells)
@@ -40,9 +41,9 @@ namespace FinancialsScraper.Mappers
             return liquidity;
         }
 
-        private CapitalStructure MapCapitalStructure(IDocument document)
+        private CapitalStructure MapCapitalStructure(IEnumerable<string> dataCells)
         {
-            var dataCells = RatiosAndMarginsExtractor.GetCapitalStructure(document);
+            //var dataCells = RatiosAndMarginsExtractor.GetCapitalStructure(document);
             var capitalStructure = new CapitalStructure();
 
             foreach (var cell in dataCells)
@@ -69,9 +70,9 @@ namespace FinancialsScraper.Mappers
             return capitalStructure;
         }
 
-        private Profitability MapProfitability(IDocument document)
+        private Profitability MapProfitability(IEnumerable<string> dataCells)
         {
-            var dataCells = RatiosAndMarginsExtractor.GetProfitability(document);
+            //var dataCells = RatiosAndMarginsExtractor.GetProfitability(document);
             var profitability = new Profitability();
 
             foreach (var cell in dataCells)
@@ -98,9 +99,9 @@ namespace FinancialsScraper.Mappers
             return profitability;
         }
 
-        private Valuation MapValuation(IDocument document)
+        private Valuation MapValuation(IEnumerable<string> dataCells)
         {
-            var dataCells = RatiosAndMarginsExtractor.GetValuation(document);
+            //var dataCells = RatiosAndMarginsExtractor.GetValuation(document);
             var valuation = new Valuation();
 
             foreach (var cell in dataCells)
@@ -133,5 +134,10 @@ namespace FinancialsScraper.Mappers
             return valuation;
         }
 
+        // public IElementModel Map(IEnumerable<IElementModel> cells)
+        // {
+        //     throw new System.NotImplementedException();
+        // }
+       
     }
 }

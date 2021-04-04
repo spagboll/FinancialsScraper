@@ -2,7 +2,7 @@
 
 namespace FinancialsScraper.Models
 {
-    public class PerShareData
+    public class PerShareData : IDataModel
     {
         public string EarningsPerShare { get; set; }
 

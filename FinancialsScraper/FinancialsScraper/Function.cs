@@ -15,15 +15,15 @@ namespace FinancialsScraper
         
         public async Task<string> FunctionHandler(string input, ILambdaContext context)
         {
-            input = "https://www.wsj.com/market-data/quotes/TSM/financials";
-
-            var document = await _parser.ParsePage(input);
-            
-            var ratiosandmargins = new RatiosAndMarginsMapper().Map(document);
-            
-            
-            var perShareData = new PerShareDataMapper().Map(document);
-            var financials = FinancialsBuilder.Create().WithPerShareData(perShareData).Build(); 
+            // input = "https://www.wsj.com/market-data/quotes/TSM/financials";
+            //
+            // var document = await _parser.ParsePage(input);
+            //
+            // var ratiosandmargins = new RatiosAndMarginsMapper().Map(document);
+            //
+            //
+            // var perShareData = new PerShareDataMapper().Map(document);
+            // var financials = FinancialsBuilder.Create().WithPerShareData(perShareData).Build(); 
             
 
             return null;

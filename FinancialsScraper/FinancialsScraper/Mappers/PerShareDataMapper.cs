@@ -1,22 +1,19 @@
-﻿using AngleSharp.Dom;
+﻿using System.Collections.Generic;
 using FinancialsScraper.Interfaces;
 using FinancialsScraper.Models;
-using FinancialsScraper.Extractors;
 using FinancialsScraper.Helpers;
 
 namespace FinancialsScraper.Mappers
 {
-    public class PerShareDataMapper : IDataMapper<PerShareData>
+    public class PerShareDataMapper : IDataMapper<string>
     {
-        public PerShareData Map(IDocument document)
+        public IDataModel Map(IEnumerable<string> cells)
         {
             var perShareData = new PerShareData();
 
-            var tableCells = PerShareDataExtractor.GetDataTableCells(document, perShareData.GetSelector()); 
+            //var tableCells = PerShareDataExtractor.GetDataTableCells(document, perShareData.GetSelector()); 
             
-            foreach (var cellTexts in tableCells)
-            {
-                foreach (var text in cellTexts)
+                foreach (var text in cells)
                 {
                     if (!string.IsNullOrEmpty(text))
                     {
@@ -44,9 +41,13 @@ namespace FinancialsScraper.Mappers
                             perShareData.CapitalExpenditureTtm = matchedValue; 
                     }
                 }
-            }
 
             return perShareData; 
+        }
+
+        public T Map<T>(IEnumerable<T> cells)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

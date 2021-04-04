@@ -6,9 +6,9 @@ namespace FinancialsScraper.Extractors
 {
     public static class PerShareDataExtractor
     {
-        public static IEnumerable<IEnumerable<string>> GetDataTableCells(IDocument document, string selector)
+        public static IEnumerable<string> GetDataTableCells(IDocument document, string selector)
         {
-            return GetDataTable(document, selector).Children.Select(x => x.Children.Select(y => y.TextContent));
+            return GetDataTable(document, selector).Children.SelectMany(x => x.Children.Select(y => y.TextContent));
         }
 
         private static IElement GetDataTable(IDocument document, string selector) 

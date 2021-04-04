@@ -1,10 +1,10 @@
-﻿using AngleSharp.Dom;
+﻿using System.Collections.Generic;
 using FinancialsScraper.Models;
 
 namespace FinancialsScraper.Interfaces
 {
-    public interface IDataMapper<out T>
+    public interface IDataMapper<in T>
     {
-        T Map(IDocument document);
+       IDataModel Map(IEnumerable<T> cells);
     }
 }

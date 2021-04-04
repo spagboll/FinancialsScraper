@@ -1,6 +1,6 @@
 ﻿namespace FinancialsScraper.Models
 {
-    public interface IElementModel
+    public interface IDataModel
     {
     }
 }

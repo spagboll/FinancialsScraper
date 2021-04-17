@@ -1,0 +1,14 @@
+﻿<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Lambda Test Tool" type="RunExe" factoryName=".NET Executable" activateToolWindowBeforeRun="false">
+    <option name="EXE_PATH" value="$USER_HOME$/.dotnet/tools/.store/amazon.lambda.testtool-3.1/0.11.3/amazon.lambda.testtool-3.1/0.11.3/tools/netcoreapp3.1/any/Amazon.Lambda.TestTool.BlazorTester.dll" />
+    <option name="PROGRAM_PARAMETERS" value="--no-ui" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/FinancialsScraper" />
+    <option name="PASS_PARENT_ENVS" value="1" />
+    <option name="USE_EXTERNAL_CONSOLE" value="0" />
+    <option name="USE_MONO" value="0" />
+    <option name="RUNTIME_ARGUMENTS" value="" />
+    <method v="2">
+      <option name="Build Solution" enabled="true" />
+    </method>
+  </configuration>
+</component>

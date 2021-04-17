@@ -3,6 +3,7 @@ using Amazon.Lambda.Core;
 using FinancialsScraper.Builders;
 using FinancialsScraper.Interfaces;
 using FinancialsScraper.Mappers;
+using Newtonsoft.Json.Linq;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
@@ -13,7 +14,7 @@ namespace FinancialsScraper
     {
         private IParser _parser = new Parser();
         
-        public async Task<string> FunctionHandler(string input, ILambdaContext context)
+        public async Task<string> FunctionHandler(JObject input, ILambdaContext context)
         {
             // input = "https://www.wsj.com/market-data/quotes/TSM/financials";
             //

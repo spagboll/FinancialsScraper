@@ -20,5 +20,10 @@ namespace FinancialsScraper.Tests
         {
             //_perShareDataMapper.Map()
         }
+
+
+        public void test()
+        {
+        }
     }
 }

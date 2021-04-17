@@ -28,4 +28,7 @@ Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4D8BF7D9-5725-4F48-ABFC-BC67A9F399A8}
 	EndGlobalSection
+	GlobalSection(RiderSharedRunConfigurations) = postSolution
+		File = FinancialsScraper\Lambda Test Tool.run.xml
+	EndGlobalSection
 EndGlobal

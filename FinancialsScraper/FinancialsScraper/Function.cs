@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Amazon.Lambda.Core;
 using FinancialsScraper.Builders;
+using FinancialsScraper.Extractors;
 using FinancialsScraper.Interfaces;
 using FinancialsScraper.Mappers;
 using Newtonsoft.Json.Linq;
@@ -16,15 +17,14 @@ namespace FinancialsScraper
         
         public async Task<string> FunctionHandler(JObject input, ILambdaContext context)
         {
-            // input = "https://www.wsj.com/market-data/quotes/TSM/financials";
-            //
-            // var document = await _parser.ParsePage(input);
-            //
-            // var ratiosandmargins = new RatiosAndMarginsMapper().Map(document);
-            //
-            //
-            // var perShareData = new PerShareDataMapper().Map(document);
-            // var financials = FinancialsBuilder.Create().WithPerShareData(perShareData).Build(); 
+            string urlToScrape = "https://www.wsj.com/market-data/quotes/TSM/financials";
+            
+            var document = await _parser.ParsePage(urlToScrape);
+
+            IncomeStatementExtractor incomeStatementExtractor = new IncomeStatementExtractor();
+
+            var doc = incomeStatementExtractor.GetDataTableCells(document);
+            
             
 
             return null;

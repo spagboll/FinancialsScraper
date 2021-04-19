@@ -1,5 +1,4 @@
 ﻿using System;
-using Castle.Core.Resource;
 
 namespace FinancialsScraper.Models
 {

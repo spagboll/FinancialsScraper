@@ -11,7 +11,17 @@ namespace FinancialsScraper.Extractors
         {
             // return GetDataTable(document, selector).Children.SelectMany(x => x.Children.Select(y => y.TextContent));
 
-            var cells = GetIncomeSatement(document).SelectMany(x => x.GetElementsByClassName("cr_financials_row"));
+            var allChildren = GetIncomeSatement(document).SelectMany(x => x.Children.SelectMany(y => y.Children.SelectMany(z => z.Children)));
+
+
+            var child = GetIncomeSatement(document)
+                .SelectMany(x =>
+                    x.Children
+                        .Select(y =>
+                            y.GetElementsByClassName("cr_financials_table").SelectMany(z => z.LocalName == "table");
+            
+            
+            //var table = allChildren.SelectMany(x => x.Children.Select(y => y.QuerySelector("cr_financials_table")));
 
             return null;
         }
